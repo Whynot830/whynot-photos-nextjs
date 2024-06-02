@@ -28,6 +28,9 @@ export async function signIn(values) {
         const json = await response.json()
         return json
     }
+    return {
+        status: 500
+    }
 }
 
 export async function signUp(values) {
@@ -50,22 +53,28 @@ export async function signUp(values) {
             status: 200
         }
     }
-
     if (response.status == 400) {
         const json = await response.json()
         return json
     }
+    return {
+        status: 500
+    }
 }
 
 export async function fetchUserData() {
-    const response = await fetch(`${process.env.SERVER_URL}/api/auth/info`, {
-        headers: { cookie: cookies() }
-    })
-    if (response.ok) {
-        const userData = await response.json()
-        return userData
+    try {
+        const response = await fetch(`${process.env.SERVER_URL}/api/auth/info`, {
+            headers: { cookie: cookies() }
+        })
+        if (response.ok) {
+            const userData = await response.json()
+            return userData
+        }
+        return null
+    } catch (err) {
+        return null
     }
-    return null
 }
 
 export async function fetchImages() {
@@ -77,10 +86,9 @@ export async function fetchImages() {
         const images = await response.json()
         return images
     }
-    if (response.status === 401) {
-        return redirect('/auth/login?skip=true')
-    }
-    return redirect('/error')
+    if (response.status === 401)
+        redirect('/auth/login?skip=true')
+    return { status: response.status }
 }
 
 export async function fetchImageData(assetId) {
@@ -92,12 +100,12 @@ export async function fetchImageData(assetId) {
         return image
     }
     if (response.status === 401) {
-        return redirect('/auth/login?skip=true')
+        redirect('/auth/login?skip=true')
     }
     if (response.status === 404) {
         return null
     }
-    return redirect('/error')
+    redirect('/error')
 }
 
 export async function uploadImage(formData) {
@@ -123,16 +131,17 @@ export async function deleteImage(filename) {
     })
     if (response.ok) {
         revalidatePath('/')
-        return redirect('/')
+        redirect('/')
     }
     if (response.status === 401)
-        return redirect('/auth/login?skip=true')
+        redirect('/auth/login?skip=true')
 
-
-    return redirect('/error')
+    redirect('/error')
 }
 
 export async function logout() {
     cookies().set('accessToken', '')
     cookies().set('refreshToken', '')
+    redirect('/auth/login?skip=true')
+
 }

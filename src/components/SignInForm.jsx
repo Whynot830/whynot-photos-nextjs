@@ -8,8 +8,10 @@ import { useAuth } from './AuthContext';
 import { Button } from './ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form';
 import { Input } from './ui/input';
+import { useRouter } from "next/navigation"
 
 const SignInForm = () => {
+    const router = useRouter()
     const inputRef = useRef()
     const form = useForm({
         defaultValues: {
@@ -22,6 +24,8 @@ const SignInForm = () => {
 
     const onSubmit = async (values) => {
         const response = await login(values)
+        if (response.status === 500)
+            router.push('/error')
         response && setError('response', response)
     }
 
@@ -70,7 +74,7 @@ const SignInForm = () => {
                             </FormItem>
                         )}
                     />
-                    <Link href='/auth/register' className="underline-offset-4 hover:underline">Do not have an account yet?</Link>
+                    <Link href='/auth/register?skip=true' className="underline-offset-4 hover:underline">Do not have an account yet?</Link>
                     <Button className='w-fit px-8' disabled={isSubmitting}>{isSubmitting ? 'Loading...' : 'Sign In'}</Button>
                     <FormField name="response"
                         render={({ _field }) => (

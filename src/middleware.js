@@ -5,7 +5,10 @@ import { cookies } from "next/headers";
 export async function middleware(request) {
     const accessToken = cookies().get('accessToken')
     const refreshToken = cookies().get('refreshToken')
-    if (!accessToken && refreshToken && refreshToken.value !== '') {
+    const isAccessTokenValid = accessToken && accessToken.value !== ''
+    const isRefreshTokenValid = refreshToken && refreshToken.value !== ''
+
+    if (!isAccessTokenValid && isRefreshTokenValid) {
         const response = await fetch(`${process.env.SERVER_URL}/api/auth/refresh`, {
             method: 'POST',
             headers: {
@@ -20,9 +23,9 @@ export async function middleware(request) {
     }
     const { nextUrl: requestUrl } = request
     const url = new URL(requestUrl)
-    const isSkipping = url.searchParams.get('skip') === 'true'
+    const isSkipping = url.searchParams.get('skip') === 'true' || url.search === '?skip=true'
 
-    if ((!isSkipping || accessToken) && requestUrl.pathname.startsWith('/auth')) {
+    if ((!isSkipping || isAccessTokenValid) && requestUrl.pathname.startsWith('/auth')) {
         const userData = await fetchUserData()
         if (!!userData)
             return NextResponse.redirect(new URL('/', requestUrl))

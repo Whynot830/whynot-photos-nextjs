@@ -17,16 +17,17 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (values) => {
         const response = await serverSignIn(values)
-        if (response.message)
-            return response
-        setUser(response)
-        router.push('/')
+        if (response.status === 500) router.push('/error')
+        if (response.id) {
+            setUser(response)
+            router.push('/')
+        }
+        return response
     }
 
     const logout = async () => {
-        await serverLogout()
         setUser(null)
-        router.push('/auth/login?skip=true')
+        await serverLogout()
     }
 
     useEffect(() => {
