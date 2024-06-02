@@ -7,7 +7,7 @@ import Link from "next/link"
 const HomePage = async () => {
   const images = await fetchImages()
   return (
-    <section className=" grid gap-3 grid-cols-gallery justify-center">
+    <section className="grid gap-3 grid-cols-gallery justify-center">
       {images.map((image) =>
         <Card key={image.id} className="overflow-hidden aspect-square ">
           <CardContent className='p-3 h-full'>
@@ -16,7 +16,7 @@ const HomePage = async () => {
                 <Image
                   src={image.url}
                   width={250} height={250}
-                  sizes="(min-width: 1500px) 700px (min-width: 1380px) 600px, (min-width: 1100px) 400px, (min-width: 840px) 300px, 200px"
+                  sizes="(min-width: 1500px) 700px (min-width: 1380px) 600px, 400px"
                   placeholder='blur'
                   alt={`${image.filename}`}
                   className="w-full h-full cursor-pointer object-cover "
@@ -25,14 +25,13 @@ const HomePage = async () => {
               </Link>
             </div>
           </CardContent>
-
         </Card>
       )}
       {images.length === 0 && (
         <div className="absolute inset-0 flex flex-col gap-y-4 pb-20 justify-center items-center ">
           <h2 className="text-2xl md:text-3xl">Upload your first image!</h2>
           <h2 className="text-xl md:text-2xl">Your gallery is currently empty</h2>
-          <FileUploadModal/>
+          <FileUploadModal />
         </div>
       )}
     </section >

@@ -19,8 +19,8 @@ export default function RootLayout({ children }) {
       <body>
         <ThemeProvider>
           <AuthProvider>
-            <div className="flex min-h-screen flex-col relative ">
-              <div className="flex-1 h-screen">
+            <div className="flex h-dvh flex-col relative ">
+              <div className="flex-1">
                 <Header />
                 <main className="container py-2">
                   {children}

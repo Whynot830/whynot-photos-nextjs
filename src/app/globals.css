@@ -10,7 +10,7 @@
 html,
 body,
 #root {
-  @apply min-h-screen min-w-[320px] scroll-smooth;
+  @apply min-h-dvh min-w-[320px] scroll-smooth;
 }
 
 * {
