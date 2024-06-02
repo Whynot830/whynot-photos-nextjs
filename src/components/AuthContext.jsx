@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         await serverLogout()
         setUser(null)
+        router.push('/auth/login?skip=true')
     }
 
     useEffect(() => {

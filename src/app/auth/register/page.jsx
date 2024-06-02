@@ -1,6 +1,6 @@
 import SignUpForm from "@/components/SignUpForm"
 
-const SignUp = () => {
+const SignUpPage = () => {
     return (
         <>
             <SignUpForm/>
@@ -8,4 +8,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default SignUpPage

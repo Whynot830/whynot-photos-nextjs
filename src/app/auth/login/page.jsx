@@ -1,6 +1,6 @@
 import SignInForm from "@/components/SignInForm"
 
-const Login = () => {
+const LoginPage = () => {
     return (
         <>
             <SignInForm />
@@ -8,4 +8,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default LoginPage

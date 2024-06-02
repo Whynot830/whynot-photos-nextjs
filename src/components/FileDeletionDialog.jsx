@@ -6,10 +6,10 @@ import { Trash2Icon } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
 import { useToast } from "./ui/use-toast"
 
-const FileDeletionDialog = ({ filename }) => {
+const FileDeletionDialog = ({ assetId }) => {
     const { toast } = useToast()
     const handleDelete = async () => {
-        await deleteImage(filename)
+        await deleteImage(assetId)
         toast({
             title: 'Image deleted successfully'
         })
@@ -39,7 +39,7 @@ const FileDeletionDialog = ({ filename }) => {
                         This action cannot be undone
                     </AlertDialogDescription>
                 </AlertDialogHeader>
-                <span>Are you sure you want to delete &apos;{filename}&apos; ?</span>
+                <span>Are you sure you want to delete &apos;{assetId}&apos; ?</span>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction onClick={handleDelete}>Confirm</AlertDialogAction>

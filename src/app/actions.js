@@ -83,8 +83,8 @@ export async function fetchImages() {
     return redirect('/error')
 }
 
-export async function fetchImageData(src) {
-    const response = await fetch(`${process.env.SERVER_URL}/api/images/${src}?data=true`, {
+export async function fetchImageData(assetId) {
+    const response = await fetch(`${process.env.SERVER_URL}/api/images/${assetId}`, {
         headers: { cookie: cookies() }
     })
     if (response.ok) {
@@ -93,7 +93,9 @@ export async function fetchImageData(src) {
     }
     if (response.status === 401) {
         return redirect('/auth/login?skip=true')
-
+    }
+    if (response.status === 404) {
+        return null
     }
     return redirect('/error')
 }
@@ -133,6 +135,4 @@ export async function deleteImage(filename) {
 export async function logout() {
     cookies().set('accessToken', '')
     cookies().set('refreshToken', '')
-    return redirect('/auth/login?skip=true')
-
 }

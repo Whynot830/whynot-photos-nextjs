@@ -9,7 +9,7 @@ import ThemeSwitch from "./ThemeSwitch"
 
 const Header = () => {
     const pathname = usePathname()
-    const { filename } = useParams()
+    const { assetId } = useParams()
     return (
         <header className="sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="m-auto py-3 px-6 sm:px-8 md:px-14 flex max-w-[1440px]  justify-between">
@@ -22,8 +22,8 @@ const Header = () => {
                 </div>
 
                 <div className='flex gap-2 xs:gap-4 md:gap-8'>
-                    {filename && (
-                        <FileDeletionDialog filename={filename} />
+                    {assetId && (
+                        <FileDeletionDialog assetId={assetId} />
                     )}
                     {pathname === '/' && (
                         <FileUploadDialog side='left' />

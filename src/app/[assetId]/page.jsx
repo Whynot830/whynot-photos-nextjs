@@ -1,13 +1,15 @@
-'use client'
-
+import { fetchImageData } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { InfoIcon } from "lucide-react";
 import Image from "next/image";
-import { useAuth } from "./AuthContext";
+import { redirect } from "next/navigation";
 
-const ImageClientPage = ({ image }) => {
-    const { user } = useAuth()
+const ImagePage = async ({ params: { assetId } }) => {
+    const image = await fetchImageData(assetId)
+    if (!image)
+        redirect('/')
+
     let tempSize = image.size
     const sizes = ['B', 'KB', 'MB']
     let sizeUnitIdx = 0
@@ -24,11 +26,13 @@ const ImageClientPage = ({ image }) => {
                             <InfoIcon size={28} />
                         </Button>
                     </HoverCardTrigger>
-                    <HoverCardContent side='bottom' className='w-fit'>
-                        <p className="font-medium">
-                            <span>ID: {image._id}</span>
+                    <HoverCardContent side='bottom' className='xs:w-fit'>
+                        <p className="overflow-hidden text-ellipsis font-medium">
+                            <span>ID: {image.id}</span>
                             <br />
                             <span>Filename: {image.filename}</span>
+                            <br />
+                            <span>Format: {image.format}</span>
                             <br />
                             <span>Uploaded: {new Date(image.createdAt).toLocaleString()}</span>
                             <br />
@@ -37,28 +41,25 @@ const ImageClientPage = ({ image }) => {
                     </HoverCardContent>
                 </HoverCard>
             </div>
-            {user &&
-                <>
-                    <Image
-                        src={`${process.env.NEXT_PUBLIC_SERVER_URL}/api/images/${user.id}/${image.filename}`}
-                        fill
-                        priority={true}
-                        quality={1}
-                        alt={`${image.filename}`}
-                        className='-z-10 object-cover !blur-xl brightness-50'
-                    />
-                    <Image
-                        overrideSrc={`${process.env.NEXT_PUBLIC_SERVER_URL}/api/images/${user.id}/${image.filename}`}
-                        fill
-                        sizes="100vw"
-                        quality={100}
-                        alt={`${image.filename}`}
-                        className='object-scale-down'
-                    />
-                </>
-            }
+            <Image
+                src={image.url}
+                fill
+                priority={true}
+                quality={1}
+                alt={`${image.filename}`}
+                className='-z-10 object-cover !blur-xl brightness-50'
+            />
+            <Image
+                overrideSrc={image.url}
+                fill
+                sizes="100vw"
+                quality={100}
+                alt={image.url}
+                className='object-scale-down'
+            />
 
         </div>
     )
 }
-export default ImageClientPage
+
+export default ImagePage
