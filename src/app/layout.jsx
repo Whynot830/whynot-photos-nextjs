@@ -19,7 +19,9 @@ export default function RootLayout({ children }) {
       <body>
         <ThemeProvider>
           <AuthProvider>
-            <div className="flex h-dvh flex-col relative ">
+            <div className="flex min-h-dvh flex-col relative ">
+              <div className="absolute inset-0 bg-[url('/bg.webp')] opacity-20 blur -z-40" />
+
               <div className="flex-1">
                 <Header />
                 <main className="container py-2">

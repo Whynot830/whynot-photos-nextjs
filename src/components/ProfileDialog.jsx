@@ -1,10 +1,10 @@
 'use client'
 
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { User } from "lucide-react"
 import { useAuth } from "./AuthContext"
-import { Avatar, AvatarFallback } from "./ui/avatar"
-import { Button } from "./ui/button"
 
 const ProfileDialog = () => {
     const { user, logout } = useAuth()

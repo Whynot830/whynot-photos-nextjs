@@ -14,7 +14,7 @@ export const shadcnPlugin = plugin(
                 "--primary-foreground": "0 0% 95%",
                 "--secondary": "0 0% 75%",
                 "--secondary-foreground": "0 0% 0%",
-                "--muted": "240 5% 93%",
+                "--muted": "240 5% 85%",
                 "--muted-foreground": "0 0% 30%",
                 "--accent": "0 0% 90%",
                 "--accent-foreground": "0 0% 0%",
@@ -125,7 +125,7 @@ export const shadcnPlugin = plugin(
                     "accordion-up": "accordion-up 0.2s ease-out",
                 },
                 gridTemplateColumns: {
-                    "gallery": "repeat(auto-fill, minmax(300px, 1fr))"
+                    "gallery": "repeat(auto-fill, minmax(250px, 1fr))"
                 }
             },
         },

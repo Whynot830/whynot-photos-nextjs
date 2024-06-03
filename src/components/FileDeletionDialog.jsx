@@ -2,9 +2,9 @@
 
 import { deleteImage } from "@/app/actions"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { useToast } from "@/components/ui/use-toast"
 import { Loader, Trash2Icon } from "lucide-react"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
-import { useToast } from "./ui/use-toast"
 import { useState } from "react"
 
 const FileDeletionDialog = ({ assetId }) => {

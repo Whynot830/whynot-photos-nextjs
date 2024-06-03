@@ -1,12 +1,12 @@
 'use client'
 
 import { uploadImage } from "@/app/actions";
+import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useToast } from "@/components/ui/use-toast";
 import { ImagePlus } from "lucide-react";
 import { useRef, useState } from "react";
-import { Button } from "./ui/button";
-import { useToast } from "./ui/use-toast";
 
 const FileUploadModal = ({ side = 'bottom' }) => {
     const { toast } = useToast()
